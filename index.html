@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omega Fire Ministries</title>
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <!-- Meta Tags -->
+    <meta name="description" content="Welcome to Omega Fire Ministries, a place of worship and community. Join us for Sunday and weekly services, explore our departments and events, and find a cell group near you.">
+    <meta name="keywords" content="Omega Fire Ministries, Church, Worship, Community, Sunday Services, Events, Cell Groups, Bus Routes">
+    <meta name="author" content="Omega Fire Ministries">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Omega Fire Ministries">
+    <meta property="og:description" content="Join Omega Fire Ministries for worship, community, and events. Find out more about our services, departments, and cell groups.">
+    <meta property="og:image" content="https://www.ofmlusaka.org/OFM.png">
+    <meta property="og:url" content="https://www.ofmlusaka.org">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon Images -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="style.css" rel="stylesheet">
+    <link href="mobile.css" rel="stylesheet">
+    <style>
+    /* Branches Section Styling */
+
+.container#branches {
+    margin-top: 20px;
+}
+
+.branches-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.branch {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.branch:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.branch::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.branch:hover::before {
+    opacity: 1;
+}
+
+.branch h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.branch-details {
+    margin-top: 10px;
+    display: none;
+}
+
+/* Text inside branch */
+.branch p {
+    margin: 5px 0;
+}
+
+/* Metallic shine effect */
+.branch::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none; /* Ensures this overlay does not interfere with click events */
+}
+
+.branch:hover::after {
+    opacity: 1;
+}
+
+/* Hover effect on h3 */
+.branch h3:hover {
+    color: #1a73e8; /* Adjust color on hover */
+}
+
+.testimony-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.lane {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    position: relative;
+    background: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lane:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 5px;
+    background: #fff;
+    z-index: 1;
+}
+
+@media (min-width: 769px) {
+    .video-container {
+        width: 22%;
+    }
+}
+
+.video-container {
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.video-container video {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.video-container h3 {
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+.video-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.play-button, .fullscreen-button, .forward-button, .backward-button {
+    cursor: pointer;
+    font-size: 1.5em;
+    margin: 0 5px;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    margin-left: 10px;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background: #2196F3;
+    width: 0;
+    border-radius: 5px;
+}
+    </style>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-storage-compat.js"></script>
+    <script>
+    function shareLocation() {
+        const shareData = {
+            title: 'Omega Fire Ministries Location',
+            text: 'Check out the location of Omega Fire Ministries Lusaka, Zambia:',
+            url: 'https://maps.app.goo.gl/sNCoAftvzKQmScUw6'
+        };
+
+        if (navigator.share) {
+            navigator.share(shareData)
+                .then(() => console.log('Location shared successfully'))
+                .catch((error) => console.error('Error sharing location:', error));
+        } else {
+            const fallbackInput = document.createElement('input');
+            fallbackInput.value = shareData.url;
+            document.body.appendChild(fallbackInput);
+            fallbackInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(fallbackInput);
+            alert('Link copied to clipboard: ' + shareData.url);
+        }
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="OFM-Tulsa-ezgif.com-gif-maker.svg" alt="Omega Fire Ministries Logo">
+        </div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#bus-routes">Bus Routes</a></li>
+                <!-- <li><a href="#cell-groups">Cell Groups</a></li> -->
+                <li><a href="#branches">Branches</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+        </nav>
+        <button class="navbar-toggle" id="navbar-toggle">
+            <span class="arrow">&#9660;</span>
+        </button>
+    </header>
+
+       <!-- Word of Wisdom section -->
+<div class="word-of-wisdom-navbar" >
+    <h2 onclick="toggleWordOfWisdom()">WORD OF WISDOM</h2>
+    <p class="quote-of-the-week" onclick="toggleWordOfWisdom()"></p>
+    <div class="word-of-wisdom-expand" id="word-of-wisdom-video">
+        <!-- Custom Video Player -->
+        <video id="wisdom-video-player" width="1000" height="600" controls>
+            <source id="wisdom-video-source" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+    
+    <div class="container" id="home">
+        <h1>Welcome to Omega Fire Ministries Lusaka Zambia</h1>
+        <div class="content" id="content">
+            <!-- Rhema for Living section will be dynamically added -->
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <!-- Members Section 
+    <div class="container" id="members">
+        <h2>Members</h2>
+        <ul class="member-tree" id="member-tree">
+             Members -->
+        </ul>
+    </div>
+    <div class="clear"></div> 
+
+<div class="container" id="pastors-and-founders">
+    <h2>Pastors and Founders</h2>
+    <div class="tree" id="pastors-and-founders-tree">
+        <ul>
+            <li>
+                <a class="toggle">Founders/Senior Pastors OFM Worldwide</a>
+                <ul class="collapsed">
+                    <li>
+                        <div class="avatar">
+                            <img src="Apostle Johnson Suleman.jpg" alt="Apostle Johnson Suleman" class="profile-pic">
+                            <a class="toggle">Apostle Prof. Johnson and Dr. Lizzy Johnson Suleman</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="toggle">National Pastors OFM Zambia</a>
+                <ul class="collapsed">
+                    <li>
+                        <div class="avatar">
+                            <img src="Pst. Portpher.jpg" alt="Pastor Portpher T.Faith" class="profile-pic">
+                            <a class="toggle">Pastors Portpher and Thokozile T.Faith</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Testimonies Section -->
+<div class="testimonies">
+    <div class="container" id="testimonies">
+        <h2 class="testimony-title">Testimony Lane</h2>
+        <!-- Testimonies will be dynamically populated here -->
+    </div>
+</div>
+
+<div class="clear"></div>
+
+    <div class="clear"></div>
+
+    <!-- Services Section -->
+    <div class="container" id="services">
+        <h2>Our Services</h2>
+        <div class="service-options">
+            <div class="service-option weekly-services">
+                <h3>Weekly Services</h3>
+                <ul>
+                    <li>
+                        <div class="service-grid">
+                            <div class="service-day">Monday - Friday</div>
+                            <div class="service-info">
+                                Wonders Without Number Online
+                                <span class="service-time">06:00-07:00</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="service-grid">
+                            <div class="service-day">Tuesday</div>
+                            <div class="service-info">
+                                Edge Tv
+                                <span class="service-time">10:00-11:00</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="service-grid">
+                            <div class="service-day">Tuesday</div>
+                            <div class="service-info">
+                                Word Encounter
+                                <span class="service-time">18:00-19:00</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="service-grid">
+                            <div class="service-day">Friday</div>
+                            <div class="service-info">
+                                Solution Service
+                                <span class="service-time">18:00-19:00</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="service-option sunday-services">
+                <h3>Weekend Services</h3>
+                <ul>
+                    <li>
+                        <div class="service-grid">
+                            <div class="service-day">Saturday</div>
+                            <div class="service-info">
+                                One Love Radio
+                                <span class="service-time">19:00-20:00</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="service-grid">
+                            <div class="service-day">Sunday</div>
+                            <div class="service-info">
+                                Main Service
+                                <span class="service-time">08:00-12:00</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Section -->
+    <div class="container" id="events">
+        <h2>Upcoming Events</h2>
+        <div class="events-calendar" id="events-calendar">
+            <!-- Events will be dynamically added here -->
+        </div>
+        <p id="debug"></p>
+    </div>
+
+    <!-- <h2>Cell Groups</h2>
+    Cell Groups Section
+
+    <div id="cell-groups"></div> -->
+
+    <div class="container" id="bus-routes">
+        <h2>Our Bus Pick Up Points</h2>
+        <p>Make sure you are at the pickup point on time</p>
+        <p>Driver Contact: +260 973513020</p>
+
+        <div class="bus-trip">
+            <h3>First Trip</h3>
+            <ul>
+                <li>City University - 06:00</li>
+                <li>Lilayi (Pala Military) - 06:20</li>
+                <li>John Howard - 06:30</li>
+                <li>Snow White - 06:40</li>
+                <li>John Laing - 06:50</li>
+                <li>Lusaka Hotel Cairo Road - 06:55</li>
+                <li>Cavendish University - 07:00</li>
+                <li>Chaisa ( Along Great North Road) - 07:05</li>
+                <li>SOS - 07:15</li>
+                <li>Mandevu Junction - 07:20</li>
+                <li>Matero (Melissa) - 07:35</li>
+                <li>Zingalume (Zambeef) - 07:40</li>
+            </ul>
+        </div>
+
+        <div class="bus-trip">
+            <h3>Second Trip</h3>
+            <ul>
+                <li>Town (Lusaka Chemistry) - 08:30</li>
+                <li>St Patrick's - 08:40</li>
+                <li>Zesco (Ring Road) - 08:45</li>
+                <li>Apex Traffic Lights (Ring Road) - 08:50</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Branches Section -->
+    <div class="container" id="branches">
+        <h2>Branches</h2>
+        <div class="branches-list">
+            <div class="branch" onclick="toggleBranchDetails('branch1')">
+                <h3>OFM LUSAKA, ZAMBIA HQ</h3>
+                <div id="branch1" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. PORTPHER TEMBO</p>
+                    <p><strong>Contact:</strong> +260975784492</p>
+                    <p><strong>Location:</strong> WOODLANDS CHALALA PLOT 1884/M, LUSAKA PROVINCE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch2')">
+                <h3>OFM CHONGWE ZAMBIA</h3>
+                <div id="branch2" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. CHARLES MPANDE</p>
+                    <p><strong>Contact:</strong> +260978450536</p>
+                    <p><strong>Location:</strong> MAPALO TRUST SCHOOL, CHONGWE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch3')">
+                <h3>OFM KAFUE, ZAMBIA</h3>
+                <div id="branch3" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. REUBEN ZULU</p>
+                    <p><strong>Contact:</strong> +260975776927</p>
+                    <p><strong>Location:</strong> BUSHE, NEAR KAFUE SWIMMING POOL, KAFUE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch4')">
+                <h3>OFM KABWE, ZAMBIA</h3>
+                <div id="branch4" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. REUBEN MUKANDA</p>
+                    <p><strong>Contact:</strong> +260977536259</p>
+                    <p><strong>Location:</strong> PLOT 51, BWACHA SITE & SERVICE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch5')">
+                <h3>OFM MANDEVU</h3>
+                <div id="branch5" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. PHILIP KUMBE</p>
+                    <p><strong>Contact:</strong> +260972900403</p>
+                    <p><strong>Location:</strong> JOHN HOWARD, LUSAKA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch6')">
+                <h3>OFM MAKENI</h3>
+                <div id="branch6" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. PETER KAPUTULA</p>
+                    <p><strong>Contact:</strong> +260973202499</p>
+                    <p><strong>Location:</strong> MAKENI VILLA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch7')">
+                <h3>OFM LILANDA</h3>
+                <div id="branch7" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. KAPALASA</p>
+                    <p><strong>Contact:</strong> +260978774928</p>
+                    <p><strong>Location:</strong> LILANDA COMPOUND</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch8')">
+                <h3>OFM CHAWAMA</h3>
+                <div id="branch8" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. MATTHEW SAKALA</p>
+                    <p><strong>Contact:</strong> +260974000158</p>
+                    <p><strong>Location:</strong> CHAWAMA COMPOUND</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch9')">
+                <h3>OFM KASAMA</h3>
+                <div id="branch9" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. EMMANUEL MWAPE</p>
+                    <p><strong>Contact:</strong> +260978123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, KASAMA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch10')">
+                <h3>OFM KITWE</h3>
+                <div id="branch10" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. JAMES BANDA</p>
+                    <p><strong>Contact:</strong> +260978654321</p>
+                    <p><strong>Location:</strong> RIVERSIDE, KITWE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch11')">
+                <h3>OFM NDOLA</h3>
+                <div id="branch11" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. LUCKY CHANDA</p>
+                    <p><strong>Contact:</strong> +260977123456</p>
+                    <p><strong>Location:</strong> MAIN STREET, NDOLA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch12')">
+                <h3>OFM CHIPATA</h3>
+                <div id="branch12" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. DAVID LUNGU</p>
+                    <p><strong>Contact:</strong> +260976123456</p>
+                    <p><strong>Location:</strong> MARKET AREA, CHIPATA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch13')">
+                <h3>OFM CHOMA</h3>
+                <div id="branch13" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. BENSON SICHULA</p>
+                    <p><strong>Contact:</strong> +260975123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, CHOMA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch14')">
+                <h3>OFM LIVINGSTONE</h3>
+                <div id="branch14" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. ANDREW MWALE</p>
+                    <p><strong>Contact:</strong> +260974123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, LIVINGSTONE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch15')">
+                <h3>OFM MONGU</h3>
+                <div id="branch15" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. PORTPHER T FAITH</p>
+                    <p><strong>Contact:</strong> +260973123456</p>
+                    <p><strong>Location:</strong> MARKET AREA, MONGU</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch16')">
+                <h3>OFM MONZE</h3>
+                <div id="branch16" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. PETER SINKALA</p>
+                    <p><strong>Contact:</strong> +260972123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, MONZE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch17')">
+                <h3>OFM MPIKA</h3>
+                <div id="branch17" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. BRIGHTON PHIRI</p>
+                    <p><strong>Contact:</strong> +260971123456</p>
+                    <p><strong>Location:</strong> MARKET AREA, MPIKA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch18')">
+                <h3>OFM MWINILUNGA</h3>
+                <div id="branch18" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. SAMUEL MWANZA</p>
+                    <p><strong>Contact:</strong> +260970123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, MWINILUNGA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch19')">
+                <h3>OFM NAKONDE</h3>
+                <div id="branch19" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. FRANCIS BANDA</p>
+                    <p><strong>Contact:</strong> +260969123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, NAKONDE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch20')">
+                <h3>OFM SENANGA</h3>
+                <div id="branch20" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. JOHN LUBINDA</p>
+                    <p><strong>Contact:</strong> +260968123456</p>
+                    <p><strong>Location:</strong> MARKET AREA, SENANGA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch21')">
+                <h3>OFM SESHEKE</h3>
+                <div id="branch21" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. EDWARD PHIRI</p>
+                    <p><strong>Contact:</strong> +260967123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, SESHEKE</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch22')">
+                <h3>OFM SOLWEZI</h3>
+                <div id="branch22" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. CHRISTOPHER SINKALA</p>
+                    <p><strong>Contact:</strong> +260966123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, SOLWEZI</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch23')">
+                <h3>OFM KALULUSHI</h3>
+                <div id="branch23" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. FELIX MWALE</p>
+                    <p><strong>Contact:</strong> +260965123456</p>
+                    <p><strong>Location:</strong> MARKET AREA, KALULUSHI</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch24')">
+                <h3>OFM MAZABUKA</h3>
+                <div id="branch24" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. LLOYD BANDA</p>
+                    <p><strong>Contact:</strong> +260964123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, MAZABUKA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch25')">
+                <h3>OFM MPIKA</h3>
+                <div id="branch25" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. BRIGHTON PHIRI</p>
+                    <p><strong>Contact:</strong> +260963123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, MPIKA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch26')">
+                <h3>OFM LUSAKA WEST</h3>
+                <div id="branch26" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. RICHARD TEMBO</p>
+                    <p><strong>Contact:</strong> +260962123456</p>
+                    <p><strong>Location:</strong> WEST END, LUSAKA</p>
+                </div>
+            </div>
+            <div class="branch" onclick="toggleBranchDetails('branch27')">
+                <h3>OFM CHIBOMBO</h3>
+                <div id="branch27" class="branch-details" style="display:none;">
+                    <p><strong>Pastor In Charge:</strong> PST. AARON PHIRI</p>
+                    <p><strong>Contact:</strong> +260961123456</p>
+                    <p><strong>Location:</strong> TOWN CENTER, CHIBOMBO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" id="about-us">
+        <h2>About Us</h2>
+        <p>In 2004, God gave His choice servant, the set-man of Omega Fire Ministry, Apostle Johnson Suleman a divine mandate to: “wipe out tears, restore people to their destinies by the revelation of the word, manifestation of power and reality of the Holy Spirit.” He equally told His Servant: “Put an end to affliction; I AM SENDING YOU WITH AN OMEGA ANOINTING…”</p>
+        <p>The OMEGA FIRE MINISTRIES INT. INC. was birthed to restore the joy of men, causing men to manifest destiny, becoming the best God created them to be and frustrating the wickedness of the enemy.</p>
+        <h3>INTERNATIONAL H/Q</h3>
+        <p>Omega Fire Ministries Int’l was officially inaugurated on the 1st of February 2004 in Auchi, Edo State – Nigeria and is presided by the General of the Prophetic; Apostle Johnson Suleman.</p>
+        <p>The miraculous is a common occurrence in Omega Fire Ministry as God confirms the mandate given to the commission with infallible proofs.</p>
+    </div>
+
+    <!-- Contact and Location Section -->
+    <div class="container" id="contact">
+        <h2>Contact Us</h2>
+        <p>We would love to hear from you! You can reach us through the following contact information:</p>
+        <ul>
+            <li>Phone: +260 974676270</li>
+            <li>WhatsApp: +260 974676270</li>
+            <li>Address: Omega Fire Ministries Lusaka Zambia, Woodlands Chalala</li>
+        </ul>
+        <h3>Our Location</h3>
+        <p>Find us at the following location:</p>
+        <div class="location">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.1556309579532!2d28.35703097474442!3d-15.47605868512078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19408d11e638112f%3A0x29c1501d240f7917!2sOmega%20Fire%20Ministries%20Lusaka%20Zambia!5e0!3m2!1sen!2szm!4v1718197953198!5m2!1sen!2szm" width="600" height="450" style="border:0;border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>        </div>
+        <div class="logo" onclick="shareLocation()" style="display: inline-grid; align-items: center; color: green; font-weight: bold; cursor: pointer;">
+            <img src="dove.svg" alt="Share" style="transform: scaleX(-1); margin-right: 8px;" >
+            Share
+        </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Omega Fire Ministries. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@OFMLUSAKAZAMBIA" target="_blank" rel="noopener noreferrer"><i class='bx bxl-youtube' style='color:#ff0909'></i></a>
+            <a href="https://web.facebook.com/ofmzambia.fanpage" target="_blank" rel="noopener noreferrer"><i class='bx bxl-facebook' style='color:#0667b1'></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Function to toggle branch details
+        function toggleBranchDetails(branchId) {
+            const branchDetails = document.getElementById(branchId);
+            if (branchDetails.style.display === 'none') {
+                branchDetails.style.display = 'block';
+            } else {
+                branchDetails.style.display = 'none';
+            }
+        }
+    
+// Function to fetch and generate testimonies
+function generateTestimonies() {
+    const testimoniesRef = firebase.database().ref('testimonies');
+    testimoniesRef.once('value', function(snapshot) {
+        const testimoniesData = snapshot.val();
+        console.log("Fetched testimonies data:", testimoniesData);  // Log the fetched data
+
+        if (testimoniesData) {
+            const container = document.getElementById('testimonies');
+            let sectionIndex = 0;
+
+            const testimoniesArray = Object.keys(testimoniesData).map(key => testimoniesData[key]);
+
+            // Loop through testimonies data and create sections for each group of 4 videos
+            while (sectionIndex < testimoniesArray.length) {
+                const section = document.createElement('div');
+                section.classList.add('lane');
+
+                for (let i = 0; i < 4 && sectionIndex < testimoniesArray.length; i++, sectionIndex++) {
+                    const testimony = testimoniesArray[sectionIndex];
+                    console.log("Rendering testimony:", testimony);  // Log each testimony being rendered
+                    const videoContainer = document.createElement('div');
+                    videoContainer.classList.add('video-container');
+
+                    const video = document.createElement('video');
+                    video.setAttribute('controls', '');
+                    video.setAttribute('id', `video-${sectionIndex}`);
+                    video.innerHTML = `<source src="${testimony.videoUrl}" type="video/mp4">Your browser does not support the video tag.`;
+
+                    const videoControls = document.createElement('div');
+                    videoControls.classList.add('video-controls');
+
+                    const backwardButton = document.createElement('div');
+                    backwardButton.classList.add('backward-button');
+                    backwardButton.textContent = '⏪';
+                    backwardButton.addEventListener('click', function() {
+                        skip(video, -5);
+                    });
+
+                    const playButton = document.createElement('div');
+                    playButton.classList.add('play-button');
+                    playButton.textContent = '▶';
+                    playButton.addEventListener('click', function() {
+                        togglePlay(video);
+                    });
+
+                    const forwardButton = document.createElement('div');
+                    forwardButton.classList.add('forward-button');
+                    forwardButton.textContent = '⏩';
+                    forwardButton.addEventListener('click', function() {
+                        skip(video, 5);
+                    });
+
+                    const fullscreenButton = document.createElement('div');
+                    fullscreenButton.classList.add('fullscreen-button');
+                    fullscreenButton.textContent = '⛶';
+                    fullscreenButton.addEventListener('click', function() {
+                        toggleFullscreen(video);
+                    });
+
+                    const progressBar = document.createElement('div');
+                    progressBar.classList.add('progress-bar');
+                    const progress = document.createElement('div');
+                    progress.classList.add('progress');
+                    progressBar.appendChild(progress);
+
+                    videoControls.appendChild(backwardButton);
+                    videoControls.appendChild(playButton);
+                    videoControls.appendChild(forwardButton);
+                    videoControls.appendChild(progressBar);
+                    videoControls.appendChild(fullscreenButton);
+
+                    videoContainer.appendChild(video);
+                    videoContainer.appendChild(videoControls);
+
+                    const testimonyName = document.createElement('h3');
+                    testimonyName.textContent = testimony.name;
+
+                    videoContainer.appendChild(testimonyName);
+                    section.appendChild(videoContainer);
+
+                    video.addEventListener('timeupdate', function() {
+                        const value = (video.currentTime / video.duration) * 100;
+                        progress.style.width = `${value}%`;
+                    });
+                }
+
+                container.appendChild(section);
+            }
+        } else {
+            console.log("No testimonies found");
+            const container = document.getElementById('testimonies');
+            container.innerHTML = '<p>No testimonies available at the moment.</p>';
+        }
+    }).catch((error) => {
+        console.error("Error fetching testimonies:", error);
+    });
+}
+
+// Generate testimonies when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    generateTestimonies();
+});
+
+// Function to toggle video play/pause
+function togglePlay(video) {
+    if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
+    }
+}
+
+// Function to toggle fullscreen mode
+function toggleFullscreen(video) {
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) { // Firefox
+        video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) { // IE/Edge
+        video.msRequestFullscreen();
+    }
+}
+
+// Function to skip forward or backward
+function skip(video, seconds) {
+    video.currentTime += seconds;
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggle = document.getElementById('navbar-toggle');
+    const navbar = document.getElementById('navbar');
+    const arrow = navbarToggle.querySelector('.arrow');
+
+    navbarToggle.addEventListener('click', function() {
+        if (navbar.classList.contains('show')) {
+            navbar.classList.remove('show');
+            arrow.innerHTML = '&#9660;';  // Down arrow
+        } else {
+            navbar.classList.add('show');
+            arrow.innerHTML = '&#9650;';  // Up arrow
+        }
+    });
+});
+
+    </script>
+    <script src="firebase.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .navbar-toggle {
+        display: block;
+        visibility: visible;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    #navbar {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    #navbar.show {
+        display: flex;
+    }
+
+    #navbar ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+    }
+
+    #navbar ul li {
+        text-align: center;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        max-width: 120px;
+        height: auto;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav ul li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    .rhema-container {
+        padding: 10px;
+    }
+
+    .service-options {
+        flex-direction: column;
+    }
+
+    .service-option {
+        flex: 1 1 100%;
+    }
+
+    .cell-group-card {
+        width: 100%;
+    }
+
+    .event-card {
+        width: 100%;
+    }
+
+    .social-icons {
+        gap: 20px;
+    }
+
+    .video-container {
+        width: 70%;
+    }
+}
+
+@media (max-width: 840px) {
+    .tree ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tree li {
+        width: auto;
+    }
+
+    .tree li::before, .tree li::after, .tree ul ul::before {
+        display: none;
+    }
+
+    .tree ul {
+        padding-left: 0;
+    }
+
+    iframe {
+        width: 90%;
+        height: 450px;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        width: 110%;
+    }
+
+    .lane {
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(to right, #fff 5%, transparent 5%) 0 0, linear-gradient(to right, #fff 5%, transparent 5%) 100% 0;
+        background-size: 5px 100%;
+        background-repeat: no-repeat;
+    }
+
+    .video-container {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .lane:before {
+        display: none;
+    }
+}
+
+
+/* Very Small Phones */
+@media (max-width: 480px) {
+    .logo img {
+        max-width: 100px;
+        height: auto;
+    }
+
+    header {
+        padding: 5px 10px;
+        width: 100%;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    nav ul li a {
+        padding-bottom: 2px;
+    }
+
+    .container {
+        padding: 0 5px;
+    }
+
+    .rhema-container {
+        padding: 5px;
+    }
+
+    .service-option {
+        padding: 10px;
+    }
+}

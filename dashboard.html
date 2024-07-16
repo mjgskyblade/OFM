@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Omega Fire Ministries</title>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-storage-compat.js"></script>
+
+    <!-- Favicon Images -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Awesome -->
+    <link href="admin.css" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/rossalina" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="OFM-Tulsa-ezgif.com-gif-maker.svg" alt="Logo">
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        
+    <div class="container">
+        <section id="rhema">
+            <h2>Add New Rhema Entry</h2>
+            <form>
+                <div>
+                    <label for="dayOfWeek">Day of the Week:</label>
+                    <select id="dayOfWeek">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" value="2024-05-16">
+                </div>
+                <div>
+                    <label for="bibleReading">Bible Reading:</label>
+                    <input type="text" id="bibleReading">
+                </div>
+                <div>
+                    <label for="topic">Topic:</label>
+                    <input type="text" id="topic">
+                </div>
+                <div>
+                    <label for="text">Text:</label><br>
+                    <textarea id="text" rows="4" cols="50"></textarea>
+                </div>
+                <div>
+                    <button type="button" onclick="saveRhema()">Save Rhema</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="events">
+            <h2>Add New Event</h2>
+            <form>
+                <div>
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" id="eventName">
+                </div>
+                <div>
+                    <label for="eventDate">Event Date:</label>
+                    <input type="date" id="eventDate">
+                </div>
+                <div>
+                    <label for="eventDescription">Event Description:</label><br>
+                    <textarea id="eventDescription" rows="4" cols="50"></textarea>
+                </div>
+                <div>
+                    <button type="button" onclick="saveEvent()">Save Event</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="cells">
+            <h2>Add New Cell Group</h2>
+            <form>
+                <div>
+                    <label for="cellGroupName">Location:</label>
+                    <input type="text" id="cellName">
+                </div>
+                <div>
+                    <label for="cellGroupContact">Name:</label>
+                    <input type="text" id="cellContact">
+                </div>
+                <div>
+                    <label for="cellGroupPhone">Phone:</label>
+                    <input type="text" id="cellPhone">
+                </div>
+                <div>
+                    <label for="cellGroupEmail">Email:</label>
+                    <input type="text" id="cellEmail">
+                </div>
+                <div>
+                    <button type="button" onclick="saveCell()">Save Cell Group</button>
+                </div>
+            </form>
+            <div id="cellGroupList">
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>Add New Bus Stop</h2>
+            <form id="add-stop-form">
+            <div>
+                <label for="stop-name">Stop Name:</label>
+                <input type="text" id="stop-name" name="stop-name" required>
+            </div>
+            <div>
+                <button type="submit">Add Stop</button>
+            </div>
+            </form>
+        </section>
+        
+        <section class="admin-container">
+            <h2>Upload Word of Wisdom Video</h2>
+            <form id="upload-video-form">
+                <div>
+                    <input type="file" id="video-file" accept="video/mp4">
+                </div>
+                <div>
+                    <label for="quote-of-the-week">Quote of the Week:</label>
+                    <input type="text" id="quote-of-the-week">
+                </div>
+                <div>
+                    <button type="submit">Upload Video</button>
+                </div>
+            </form>
+            <progress id="upload-progress" value="0" max="100" style="width: 100%;"></progress>
+        </section>        
+    </div>
+
+<!-- Upload Video Testimonies Section -->
+<section class="admin-container">
+    <h2>Upload Video Testimonies</h2>
+    <form id="upload-testimony-form">
+        <!-- Create 8 slots for testimony uploads -->
+        <div class="testimony-upload-slot">
+            <h3>Testimony 1</h3>
+            <label for="testimony-name-1">Testimony Name:</label>
+            <input type="text" id="testimony-name-1">
+            <label for="testimony-video-file-1">Select Video:</label>
+            <input type="file" id="testimony-video-file-1" accept="video/*">
+            <label for="testimony-upload-progress-1">Upload Progress:</label>
+            <progress id="testimony-upload-progress-1" value="0" max="100"></progress>
+        </div>
+        <div class="testimony-upload-slot">
+            <h3>Testimony 2</h3>
+            <label for="testimony-name-2">Testimony Name:</label>
+            <input type="text" id="testimony-name-2">
+            <label for="testimony-video-file-2">Select Video:</label>
+            <input type="file" id="testimony-video-file-2" accept="video/*">
+            <label for="testimony-upload-progress-2">Upload Progress:</label>
+            <progress id="testimony-upload-progress-2" value="0" max="100"></progress>
+        </div>
+        <!-- Add similar blocks for testimonies 3 to 8 -->
+        <div class="testimony-upload-slot">
+            <h3>Testimony 3</h3>
+            <label for="testimony-name-3">Testimony Name:</label>
+            <input type="text" id="testimony-name-3">
+            <label for="testimony-video-file-3">Select Video:</label>
+            <input type="file" id="testimony-video-file-3" accept="video/*">
+            <label for="testimony-upload-progress-3">Upload Progress:</label>
+            <progress id="testimony-upload-progress-3" value="0" max="100"></progress>
+        </div>
+        <div class="testimony-upload-slot">
+            <h3>Testimony 4</h3>
+            <label for="testimony-name-4">Testimony Name:</label>
+            <input type="text" id="testimony-name-4">
+            <label for="testimony-video-file-4">Select Video:</label>
+            <input type="file" id="testimony-video-file-4" accept="video/*">
+            <label for="testimony-upload-progress-4">Upload Progress:</label>
+            <progress id="testimony-upload-progress-4" value="0" max="100"></progress>
+        </div>
+        <div class="testimony-upload-slot">
+            <h3>Testimony 5</h3>
+            <label for="testimony-name-5">Testimony Name:</label>
+            <input type="text" id="testimony-name-5">
+            <label for="testimony-video-file-5">Select Video:</label>
+            <input type="file" id="testimony-video-file-5" accept="video/*">
+            <label for="testimony-upload-progress-5">Upload Progress:</label>
+            <progress id="testimony-upload-progress-5" value="0" max="100"></progress>
+        </div>
+        <div class="testimony-upload-slot">
+            <h3>Testimony 6</h3>
+            <label for="testimony-name-6">Testimony Name:</label>
+            <input type="text" id="testimony-name-6">
+            <label for="testimony-video-file-6">Select Video:</label>
+            <input type="file" id="testimony-video-file-6" accept="video/*">
+            <label for="testimony-upload-progress-6">Upload Progress:</label>
+            <progress id="testimony-upload-progress-6" value="0" max="100"></progress>
+        </div>
+        <div class="testimony-upload-slot">
+            <h3>Testimony 7</h3>
+            <label for="testimony-name-7">Testimony Name:</label>
+            <input type="text" id="testimony-name-7">
+            <label for="testimony-video-file-7">Select Video:</label>
+            <input type="file" id="testimony-video-file-7" accept="video/*">
+            <label for="testimony-upload-progress-7">Upload Progress:</label>
+            <progress id="testimony-upload-progress-7" value="0" max="100"></progress>
+        </div>
+        <div class="testimony-upload-slot">
+            <h3>Testimony 8</h3>
+            <label for="testimony-name-8">Testimony Name:</label>
+            <input type="text" id="testimony-name-8">
+            <label for="testimony-video-file-8">Select Video:</label>
+            <input type="file" id="testimony-video-file-8" accept="video/*">
+            <label for="testimony-upload-progress-8">Upload Progress:</label>
+            <progress id="testimony-upload-progress-8" value="0" max="100"></progress>
+        </div>
+        <button type="submit">Upload Testimony Videos</button>
+    </form>
+</section>
+
+</div>
+</div>
+<sciprt src="firebase.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFM QR</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="mobile.css" rel="stylesheet">
+    <style>
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-code img {
+            max-width: 100%;
+            height: 450px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                max-width: 400px;
+            }
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .details p {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="OFM-Tulsa-ezgif.com-gif-maker.svg" alt="Omega Fire Ministries Logo">
+        </div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#bus-routes">Bus Routes</a></li>
+                <li><a href="index.html#branches">Branches</a></li>
+                <li><a href="index.html#about-us">About Us</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="navbar-toggle" id="navbar-toggle">
+            <span class="arrow">&#9660;</span>
+        </button>
+    </header>
+    <div class="container">
+        <div class="qr-code">
+            <img src="qr.png" alt="QR Code">
+        </div>
+        <div class="details">
+            <p>Scan the QR code or visit: <strong>www.yourwebsite.com/yourpage</strong></p>
+            <p>Phone Number: <strong>+260 974676270</strong></p>
+            <p>Follow the instructions to proceed.</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggle = document.getElementById('navbar-toggle');
+    const navbar = document.getElementById('navbar');
+    const arrow = navbarToggle.querySelector('.arrow');
+
+    navbarToggle.addEventListener('click', function() {
+        if (navbar.classList.contains('show')) {
+            navbar.classList.remove('show');
+            arrow.innerHTML = '&#9660;';  // Down arrow
+        } else {
+            navbar.classList.add('show');
+            arrow.innerHTML = '&#9650;';  // Up arrow
+        }
+    });
+});
+    </script>
+</body>
+</html>

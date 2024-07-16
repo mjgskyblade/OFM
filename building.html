@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omega Fire Ministries Building Project Pathway</title>
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <!-- Meta Tags -->
+    <meta name="description" content="Explore the building project of Omega Fire Ministries from the gate to the building.">
+    <meta name="keywords" content="Omega Fire Ministries, Church, Building Project, Pathway">
+    <meta name="author" content="Omega Fire Ministries">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Omega Fire Ministries Building Project">
+    <meta property="og:description" content="Explore the building project of Omega Fire Ministries from the gate to the building.">
+    <meta property="og:image" content="https://www.ofmlusaka.org/OFM.png">
+    <meta property="og:url" content="https://www.ofmlusaka.org/building.html">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon Images -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="style.css" rel="stylesheet">
+    <link href="mobile.css" rel="stylesheet">
+    <style>
+        /* Pathway Gallery Styles */
+        .pathway {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: transparent transparent; /* Firefox */
+        }
+
+        .pathway::-webkit-scrollbar {
+            height: 8px; /* Adjust the height of the scrollbar */
+        }
+
+        .pathway::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .pathway::-webkit-scrollbar-thumb {
+            background-color: #888; /* Change the color of the scrollbar thumb */
+            border-radius: 4px; /* Round the edges of the scrollbar thumb */
+        }
+
+        .pathway::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Change the color of the scrollbar thumb on hover */
+        }
+
+        .pathway-stage {
+            flex: none;
+            width: 100%;
+            height: 100vh;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        .pathway-stage img {
+            width: 800px;
+            height: 600px;
+            object-fit: contain;
+    }
+
+        .pathway-stage-description {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+        }
+
+        .lightbox img {
+    width: 100%;
+    height: 680px;
+    display: block;
+    border-radius: 10px;
+    margin: auto;
+}
+
+        .lightbox .close {
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Donate Section Styles */
+        .donate-section {
+            background-color: #f0f0f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+
+        .donate-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .donate-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .donate-button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .donate-button:hover {
+            background-color: #0e47a1;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .pathway-stage img {
+                width: 100%;
+                height: auto;
+            }
+            .modal-content {
+                width: 100%;
+                max-width: 400px;
+                margin: auto;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Form Styles */
+        .payment-form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .payment-form input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .payment-form button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .payment-form button:hover {
+            background-color: #0e47a1;
+        }
+
+        .success-message {
+            background-color: rgba(0, 255, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="OFM-Tulsa-ezgif.com-gif-maker.svg" alt="Omega Fire Ministries Logo">
+        </div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#bus-routes">Bus Routes</a></li>
+                <li><a href="index.html#branches">Branches</a></li>
+                <li><a href="index.html#about-us">About Us</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="navbar-toggle" id="navbar-toggle">
+            <span class="arrow">&#9660;</span>
+        </button>
+    </header>
+
+    <!-- Pathway Section -->
+    <div class="container" id="building">
+        <h1>Omega Fire Ministries Building Project Pathway</h1>
+        <div class="pathway">
+            <!-- Replace with actual images and descriptions -->
+            <div class="pathway-stage" onclick="openLightbox('Pst. Portpher.jpg')">
+                <img src="Pst. Portpher.jpg" alt="Stage 1">
+                <div class="pathway-stage-description">Gate</div>
+            </div>
+            <div class="pathway-stage" onclick="openLightbox('Pst. Portpher.jpg')">
+                <img src="Pst. Portpher.jpg" alt="Stage 2">
+                <div class="pathway-stage-description">Stage 2 Description</div>
+            </div>
+            <!-- Add more pathway stages as needed -->
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="Lightbox Image">
+        </div>
+    </div>
+
+    <!-- Donate Section -->
+    <div class="donate-section">
+        <h2>Support Our Ministry</h2>
+        <p>Your donations help us to continue our mission. Thank you for your generosity!</p>
+        <button class="donate-button" onclick="openDonateModal()">Donate Now</button>
+    </div>
+
+    <!-- Donation Modal -->
+    <div id="donate-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeDonateModal()">&times;</span>
+            <h2>Donate to Omega Fire Ministries</h2>
+            <p>Enter your donation amount and details:</p>
+            <form class="payment-form" id="paymentForm">
+                <label for="amount">Amount (K):</label>
+                <input type="text" id="amount" name="amount" pattern="[0-9 ]+" required>
+                <input type="hidden" id="transactionType" name="transactionType" value="donation">
+                <label for="senderPhoneNumber">Sender Phone Number:</label>
+                <input type="text" id="senderPhoneNumber" name="senderPhoneNumber" pattern="[0-9]+" required>
+                <button type="button" onclick="makePayment()">Make Payment</button>
+                <div id="messageContainer" class="message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script>
+        // Lightbox Functionality
+        function openLightbox(imageSrc) {
+            document.getElementById('lightbox-image').src = imageSrc;
+            document.getElementById('lightbox').style.display = 'block';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Donation Modal Functionality
+        function openDonateModal() {
+            document.getElementById('donate-modal').style.display = 'block';
+        }
+
+        function closeDonateModal() {
+            document.getElementById('donate-modal').style.display = 'none';
+        }
+
+        // Close Modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('donate-modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function makePayment() {
+    const amount = document.getElementById('amount').value;
+    const transactionType = document.getElementById('transactionType').value;
+    const senderPhoneNumber = document.getElementById('senderPhoneNumber').value;
+
+    const rawPayload = JSON.stringify({
+        auth: {
+            api_id: '6671230b-3670-48d5-84cb-ccd1a7a576f3',
+            service_id: '1002',
+            merchant_id: 'MEC00042',
+            api_key: '9651a9e8-4183-43e4-8760-a4573615e3dd',
+            channel: 'momo'
+        },
+        data: {
+            method: 'runPayToEwallet',
+            receiver_id: '0768115994',
+            reference_no: `OFM${getFormattedDate()}${getRandomDigits()}${getDayLetter()}`,
+            amount: amount
+        },
+        userdata: {
+            udf1: transactionType
+        }
+    });
+
+    var settings = {
+        url: "/.netlify/functions/proxy",
+        method: "POST",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*"
+        },
+        data: rawPayload
+    };
+
+    $.ajax(settings).done(function(response) {
+        showMessage(`Payment of ${amount} K successfully sent. Reference ID: ${response.response.reference_no}`, 'success-message');
+    }).fail(function(jqXHR, textStatus) {
+        showMessage('Payment failed. Please try again later.', 'error-message');
+    });
+}
+
+function showMessage(message, className) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.className = `message ${className}`;
+    messageContainer.style.display = 'block';
+}
+
+function getFormattedDate() {
+    const now = new Date();
+    return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+}
+
+function getRandomDigits() {
+    return Math.floor(1000 + Math.random() * 9000);
+}
+
+function getDayLetter() {
+    const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    return days[new Date().getDay()];
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggle = document.getElementById('navbar-toggle');
+    const navbar = document.getElementById('navbar');
+    const arrow = navbarToggle.querySelector('.arrow');
+
+    navbarToggle.addEventListener('click', function() {
+        if (navbar.classList.contains('show')) {
+            navbar.classList.remove('show');
+            arrow.innerHTML = '&#9660;';  // Down arrow
+        } else {
+            navbar.classList.add('show');
+            arrow.innerHTML = '&#9650;';  // Up arrow
+        }
+    });
+});
+
+    </script>
+</body>
+</html>

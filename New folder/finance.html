@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance - Omega Fire Ministries</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            position: relative;
+            animation: cardAnimation 10s infinite alternate;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        .wallet {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: cardAnimation 10s infinite alternate;
+        }
+        .wallet img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .wallet h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+        .name {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #aaa;
+            animation: fadeInOut 3s infinite alternate;
+        }
+        .dropdown {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .dropdown select {
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .details {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .details h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+        .details p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #aaa;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        @keyframes cardAnimation {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+            50% { transform: scale(1.05); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
+        }
+        @keyframes starAnimation {
+            0% { background-position: 0 0; }
+            100% { background-position: -10000px 5000px; }
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat top center;
+            z-index: -1;
+            animation: starAnimation 200s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="wallet">
+            <h2>Wallets</h2>
+            <img src="airtel.png " width="150px" height="150px" alt="Airtel Money">
+            <p class="name">Omega Fire Ministries Lusaka Zambia</p>
+            <p>Airtel Money: +260 975784492</p>
+        </div>
+
+        <!-- <div class="dropdown">
+            <select id="financeOptions">
+                <option value="">Select an Option</option>
+                <option value="seed">Seed</option>
+                <option value="tithe">Tithe</option>
+                <option value="offering">Offering</option>
+            </select>
+        </div>
+
+        <div id="details" class="details" style="display: none;">
+            <h2 id="detailsTitle"></h2>
+            <p id="detailsContent"></p>
+        </div>
+    </div> -->
+
+    <script>
+        const financeOptions = document.getElementById('financeOptions');
+        const details = document.getElementById('details');
+        const detailsTitle = document.getElementById('detailsTitle');
+        const detailsContent = document.getElementById('detailsContent');
+
+        financeOptions.addEventListener('change', function() {
+            const selectedOption = this.value;
+
+            if (selectedOption) {
+                details.style.display = 'block';
+
+                switch (selectedOption) {
+                    case 'seed':
+                        detailsTitle.innerText = 'Seed';
+                        detailsContent.innerHTML = 'Account Number: 123456789<br>Bank: XYZ Bank<br>Owner: Jane Smith';
+                        break;
+                    case 'tithe':
+                        detailsTitle.innerText = 'Tithe';
+                        detailsContent.innerHTML = 'MTN Mobile Money: +260 976543210<br>Owner: Mary Johnson';
+                        break;
+                    case 'offering':
+                        detailsTitle.innerText = 'Offering';
+                        detailsContent.innerHTML = 'Zamtel Mobile Money: +260 977654321<br>Owner: Mark Brown';
+                        break;
+                    default:
+                        details.style.display = 'none';
+                        break;
+                }
+            } else {
+                details.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

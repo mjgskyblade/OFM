@@ -1,0 +1,745 @@
+/* Basic Styles */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #87ceeb, #f0e68c);
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    position: relative;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo img {
+    max-width: 80px;
+    height: 80px;
+    filter: brightness(85%);
+    position: relative;
+    right: 5%;
+}
+
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    visibility: hidden; 
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #eee;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 3px;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+nav ul li a:hover {
+    color: #fff;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff7f50;
+    transition: width 0.3s;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+}
+
+/* Logo Animation */
+#logo {
+    width: 200px;
+    height: 200px;
+}
+
+#logo-path {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw 4s forwards;
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+    .word-of-wisdom-navbar {
+    background-color: #333;
+    width: 100%;
+    color: #fff;
+    border-radius: 0 0 30px 30px;
+    cursor: pointer;
+    margin-top: -1px; 
+    padding: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.word-of-wisdom-navbar:hover {
+    background-color: #555;
+    box-shadow: 0 10px 20px rgba(0, 255, 0, 0.6);
+}
+
+.word-of-wisdom-navbar h2 {
+    margin: 0;
+}
+
+.quote-of-the-week {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+    transition: font-size 0.3s ease, font-weight 0.3s ease;
+}
+
+.word-of-wisdom-expand {
+    display: none;
+    padding: 10px;
+}
+
+.word-of-wisdom-expand p {
+    margin: 0;
+    font-size: 18px;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .content {
+            opacity: 0;
+            transform: translateX(-100%);
+            animation: slideIn 1s ease forwards;
+            animation-delay: 1s;
+        }
+
+        /* Rhema for Living Styles */
+        .rhema-container {
+            background-color: #f0f0f0;
+            border-left: 5px solid orange;
+            padding: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            overflow: hidden;
+            max-height: 60px; /* Collapsed height */
+            transition: max-height 0.5s ease;
+        }
+
+        .rhema-container.expanded {
+            max-height: 100%; /* Expanded height */
+        }
+
+        .rhema-container {
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #fff;
+            padding-top: 60px; 
+        }
+        .rhema-container:hover {
+    animation: lavaGlow 1s infinite alternate;
+}
+
+@keyframes lavaGlow {
+    0% { box-shadow: 0 0 10px 0 #FF5733; }
+    100% { box-shadow: 0 0 20px 5px #FF5733; }
+}
+
+        .rhema-container h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Members Section */
+        .member {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .member h3 {
+            margin: 0;
+        }
+
+        /* Departments Section */
+        .department {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .department img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .department h3 {
+            margin: 0;
+        }
+
+/* Events Section */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Services Section Styles */
+
+#services {
+    padding: 40px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#services h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.service-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.service-option {
+    flex: 1 1 calc(50% - 20px);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+}
+
+.service-option h3 {
+    text-align: center;
+    color: #ff7f50; /* Coral color */
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.service-day {
+    font-weight: bold;
+    color: #333;
+}
+
+.service-info {
+    color: #666;
+}
+
+.service-time {
+    display: block;
+    color: #ff4500;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.social-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.social-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.social-icon:hover img {
+    transform: scale(1.1);
+}
+
+/* For better readability on small screens */
+@media (max-width: 600px) {
+    .event-card {
+        width: 100%;
+    }
+}
+
+        /* Cell Groups Section */
+        #cell-groups ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #cell-groups ul li {
+            margin-bottom: 10px;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .clear {
+             clear: both;
+}
+/* Tree Structure Styles */
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    padding-left: 0;
+    list-style: none;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+}
+
+.tree li {
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.tree li::before, .tree li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid cornflowerblue; /* Change line color to blue */
+    width: 50%;
+    height: 20px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid cornflowerblue; /* Change line color to blue */
+}
+
+.tree li:only-child::after, .tree li:only-child::before {
+    display: none;
+}
+
+.tree li:only-child {
+    padding-top: 0;
+}
+
+.tree li:first-child::before, .tree li:last-child::after {
+    border: 0 none;
+}
+
+.tree li:last-child::before {
+    border-right: 1px solid cornflowerblue; 
+    border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid cornflowerblue; 
+    width: 0;
+    height: 20px;
+}
+
+.tree li a {
+    padding: 5px 10px;
+    text-decoration: none;
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 11px;
+    display: inline-block;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.tree li a:hover, .tree li a:hover + ul li a {
+    background: #c8e4f8;
+    color: #000;
+    border: 1px solid #94a0b4;
+}
+
+.tree li a:hover + ul li::after, 
+.tree li a:hover + ul li::before, 
+.tree li a:hover + ul::before, 
+.tree li a:hover + ul ul::before {
+    border-color: #94a0b4;
+}
+
+/* Collapsed sublists */
+.collapsed {
+    display: none;
+}
+
+/* Avatar container */
+.avatar {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar .profile-pic {
+    display: block; 
+    width: 20em; 
+    height: 24em;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Styling the toggle links */
+.toggle {
+    cursor: pointer;
+    background-color: cornflowerblue;
+    width: 20em;
+    color: #ffffff;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.toggle:hover {
+    background: #1a73e8;
+}
+
+.toggle::before {
+    display: inline-block;
+    margin-right: 5px;
+    transition: transform 0.3s;
+}
+
+.collapsed .toggle::before {
+    transform: rotate(90deg);
+}
+
+
+        
+/* Cell Group Card Styles */
+.cell-group-card {
+    width: 200px;
+    height: 300px;
+    perspective: 1000px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.cell-group-card .front, .cell-group-card .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.6s;
+}
+
+.cell-group-card .front {
+    color: #103463;
+}
+
+.cell-group-card .front:hover {
+    color: #ff7f50;
+}
+
+.cell-group-card .back {
+    transform: rotateY(180deg);
+    text-align: center;
+}
+
+.cell-group-card .back p {
+    margin: 5px 0;
+}
+
+.cell-group-card.flipped .front {
+    transform: rotateY(180deg);
+}
+
+.cell-group-card.flipped .back {
+    transform: rotateY(0deg);
+}
+
+#cell-groups {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* spacing between cards */
+}
+
+#share-btn {
+            margin: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+#share-options {
+            display: none;
+            margin-top: 10px;
+        }
+        .share-option {
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .rhema-container {
+    z-index: 1;
+}
+
+#member-tree,
+#department-tree,
+.cell-group-card {
+    z-index: 0;
+}
+
+#about-us {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    text-align: center;
+}
+
+#about-us h2 {
+    color: #333;
+}
+
+#about-us h3 {
+    color: #333;
+}
+
+#about-us p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.bx {
+    font-family: boxicons !important;
+    font-size: xx-large;
+    font-weight: 400;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    display: inline-block;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.clock {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            background-size: cover;
+            padding: 10px;
+            border-radius: 10px;
+            
+        }
+
+        .date {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            background: radial-gradient(circle, rgba(255,165,0,1) 0%, rgba(255,69,0,1) 100%); /* Add a fiery gradient */
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(255, 69, 0, 0.5); /* fiery glow */
+        }
+.topic {
+            text-align: center;
+        }
+
+        .events-calendar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.event-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    width: 200px;
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s; 
+}
+
+.event-card:hover {
+    transform: translateY(-10px);
+}
+
+.event-card .month {
+    background-color: #ff7f50; /* Coral */
+    color: #fff;
+    font-size: 18px;
+    padding: 5px 0;
+}
+
+.event-card .day {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.event-card .event-name {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #666;
+    height: 40px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-card .year {
+    background-color: #f0f0f0;
+    color: #999;
+    font-size: 14px;
+    padding: 5px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.bus-trip {
+    margin-bottom: 20px;
+}
+
+.bus-trip h3 {
+    color: #8b4513;
+}
+
+.bus-trip ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.bus-trip li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.bus-trip li::before {
+    content: '•';
+    color: #ff7f50;
+    font-size: 24px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+/* For better readability on small screens */
+@media (max-width: 600px) {
+    .event-card {
+        width: 100%;
+    }
+}
